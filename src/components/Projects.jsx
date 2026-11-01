@@ -6,7 +6,7 @@ import { FaGithub, FaExternalLinkAlt, FaCheckCircle } from 'react-icons/fa'
 // Import existing project images from assets/images
 import rentCollectorImg from '../assets/images/rentcollector.webp'
 import dentalClinicImg from '../assets/images/dental_clinic.webp'
-import hotelImg from '../assets/images/hotel.webp'
+import hotelImg from '../assets/images/hotel-hero.png'
 import agencyImg from '../assets/images/agency.webp'
 
 // The four requested projects with exact titles and matching real screenshots
