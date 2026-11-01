@@ -1,0 +1,73 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 850 >>
+stream
+BT
+/F1 22 Tf
+50 720 Td
+(Hamza - Software Developer Resume) Tj
+0 -20 Td
+/F2 10 Tf
+(Specialties: Full-Stack | Backend Engineering | DevOps) Tj
+0 -30 Td
+/F1 14 Tf
+(PROFESSIONAL PROFILE) Tj
+0 -16 Td
+/F2 10 Tf
+(Software developer focused on building practical, reliable web applications and robust backend services.) Tj
+0 -14 Td
+(Experienced in Java, Spring Boot, PostgreSQL, Docker, React, and cloud architectures.) Tj
+0 -30 Td
+/F1 14 Tf
+(TECHNICAL EXPERTISE) Tj
+0 -16 Td
+/F2 10 Tf
+(- Backend: Java, Spring Boot, RESTful APIs, PostgreSQL, MySQL, Redis, Python) Tj
+0 -14 Td
+(- Frontend: React, Tailwind CSS, TypeScript, JavaScript, Next.js, HTML5/CSS3) Tj
+0 -14 Td
+(- DevOps: Docker, Git & GitHub, Linux, CI/CD Automation, Cloud Deployment) Tj
+0 -30 Td
+/F1 14 Tf
+(FEATURED PROJECTS) Tj
+0 -16 Td
+/F2 10 Tf
+(- Rent Collector: Automated rental management and payment tracking system) Tj
+0 -14 Td
+(- Dental Clinic Management System: Healthcare ERP, patient records, and scheduling) Tj
+0 -14 Td
+(- Hotel Website: Luxury hospitality platform and online reservation engine) Tj
+0 -14 Td
+(- Agency: Digital agency web application with high-conversion client funnels) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000244 00000 n 
+0000001147 00000 n 
+0000001220 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+1288
+%%EOF
