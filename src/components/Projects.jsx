@@ -81,7 +81,7 @@ const slotConfigs = [
     offset: -2,
     xPercent: -47,
     scale: 0.77,
-    zIndex: 10,
+    zIndex: 15,
     opacity: 0.75,
     overlayOpacity: 'bg-black/35',
     visibilityClass: 'hidden sm:block',
@@ -90,7 +90,7 @@ const slotConfigs = [
     offset: -1,
     xPercent: -25,
     scale: 0.88,
-    zIndex: 20,
+    zIndex: 25,
     opacity: 0.92,
     overlayOpacity: 'bg-black/20',
     visibilityClass: 'block',
@@ -108,7 +108,7 @@ const slotConfigs = [
     offset: 1,
     xPercent: 25,
     scale: 0.88,
-    zIndex: 20,
+    zIndex: 25,
     opacity: 0.92,
     overlayOpacity: 'bg-black/20',
     visibilityClass: 'block',
@@ -117,7 +117,7 @@ const slotConfigs = [
     offset: 2,
     xPercent: 47,
     scale: 0.77,
-    zIndex: 10,
+    zIndex: 15,
     opacity: 0.75,
     overlayOpacity: 'bg-black/35',
     visibilityClass: 'hidden sm:block',
@@ -134,15 +134,15 @@ const slotConfigs = [
 ]
 
 export default function Projects() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [page, setPage] = useState(0)
   const [touchStartX, setTouchStartX] = useState(null)
 
   const handlePrev = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length)
+    setPage((p) => p - 1)
   }, [])
 
   const handleNext = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % projects.length)
+    setPage((p) => p + 1)
   }, [])
 
   // Keyboard navigation support
@@ -174,7 +174,16 @@ export default function Projects() {
     setTouchStartX(null)
   }
 
+  const activeIndex =
+    ((page % projects.length) + projects.length) % projects.length
   const activeProject = projects[activeIndex]
+
+  const handleDotClick = (targetIdx) => {
+    let diff = targetIdx - activeIndex
+    if (diff > 2) diff -= projects.length
+    if (diff < -2) diff += projects.length
+    setPage((p) => p + diff)
+  }
 
   return (
     <section
@@ -254,36 +263,38 @@ export default function Projects() {
           {/* Carousel Track Container */}
           <div className="relative w-full h-[320px] sm:h-[380px] md:h-[430px] flex items-center justify-center">
             {slotConfigs.map((slot) => {
+              const virtualIndex = page + slot.offset
               const projectIdx =
-                ((activeIndex + slot.offset) % projects.length +
-                  projects.length) %
+                ((virtualIndex % projects.length) + projects.length) %
                 projects.length
               const project = projects[projectIdx]
               const isCenter = slot.offset === 0
 
               return (
                 <div
-                  key={`slot-${slot.offset}`}
+                  key={virtualIndex}
                   onClick={() => {
                     if (!isCenter) {
-                      setActiveIndex(projectIdx)
+                      setPage((p) => p + slot.offset)
                     }
                   }}
-                  className={`absolute top-1/2 left-1/2 transition-all duration-500 ease-out ${
+                  className={`absolute top-1/2 left-1/2 will-change-transform ${
                     slot.visibilityClass
                   } ${isCenter ? 'cursor-default' : 'cursor-pointer'}`}
                   style={{
                     zIndex: slot.zIndex,
                     transform: `translate(calc(-50% + ${slot.xPercent}%), -50%) scale(${slot.scale})`,
                     opacity: slot.opacity,
+                    transition:
+                      'transform 600ms cubic-bezier(0.25, 1, 0.5, 1), opacity 600ms cubic-bezier(0.25, 1, 0.5, 1)',
                   }}
                 >
                   {/* Polaroid Frame Container matching Reference Design */}
                   <div
-                    className={`bg-[#ffffff] rounded-[3px] sm:rounded-[4px] p-2.5 sm:p-3 pb-6 sm:pb-8 md:pb-9 w-[260px] sm:w-[330px] md:w-[390px] lg:w-[430px] shadow-[0_20px_45px_-10px_rgba(0,0,0,0.85)] border border-white/60 transition-all duration-300 ${
+                    className={`bg-[#ffffff] rounded-[3px] sm:rounded-[4px] p-2.5 sm:p-3 pb-6 sm:pb-8 md:pb-9 w-[260px] sm:w-[330px] md:w-[390px] lg:w-[430px] border border-white/60 transition-all duration-500 ease-out ${
                       isCenter
                         ? 'hover:scale-[1.02] shadow-[0_28px_60px_-10px_rgba(0,0,0,0.95)]'
-                        : 'hover:brightness-110'
+                        : 'hover:brightness-110 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.85)]'
                     }`}
                   >
                     {/* Inner Photo Mount with Aspect-16/9 and object-contain to eliminate any cropping */}
@@ -291,13 +302,14 @@ export default function Projects() {
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-contain object-center"
+                        className="w-full h-full object-contain object-center pointer-events-none select-none"
                         loading="lazy"
+                        draggable={false}
                       />
 
                       {/* Receding Card Shading Overlay matching depth in reference */}
                       <div
-                        className={`absolute inset-0 ${slot.overlayOpacity} transition-colors duration-300 pointer-events-none`}
+                        className={`absolute inset-0 ${slot.overlayOpacity} transition-colors duration-500 pointer-events-none`}
                       />
                     </div>
 
@@ -343,7 +355,7 @@ export default function Projects() {
           {projects.map((proj, idx) => (
             <button
               key={proj.id}
-              onClick={() => setActiveIndex(idx)}
+              onClick={() => handleDotClick(idx)}
               aria-label={`Go to ${proj.title}`}
               className={`transition-all duration-300 cursor-pointer ${
                 idx === activeIndex
@@ -355,14 +367,14 @@ export default function Projects() {
         </div>
 
         {/* Active Project Meta & Details Container */}
-        <div className="mt-8 sm:mt-10 max-w-2xl mx-auto">
+        <div className="mt-8 sm:mt-10 max-w-2xl mx-auto min-h-[290px] sm:min-h-[270px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeProject.id}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.35 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.28, ease: [0.25, 1, 0.5, 1] }}
               className="bg-[#141211] border border-white/[0.08] hover:border-white/[0.14] rounded-2xl p-6 sm:p-7 shadow-xl shadow-black/30 relative"
             >
               {/* Left Edge Accent Indicator Tab */}
