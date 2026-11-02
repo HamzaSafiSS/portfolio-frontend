@@ -34,6 +34,7 @@ const socials = [
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState(null) // 'loading' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -42,6 +43,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus('loading')
+    setErrorMessage('')
 
     try {
       const res = await fetch('http://localhost:8080/api/contact', {
@@ -53,18 +55,26 @@ export default function Contact() {
       if (res.ok) {
         setStatus('success')
         setForm({ name: '', email: '', subject: '', message: '' })
-        setTimeout(() => setStatus(null), 5000)
+        setTimeout(() => setStatus(null), 6000)
       } else {
-        // Fallback for standalone frontend without backend running
-        setStatus('success')
-        setForm({ name: '', email: '', subject: '', message: '' })
-        setTimeout(() => setStatus(null), 5000)
+        const errData = await res.json().catch(() => null)
+        let msg = 'Submission failed. Please check your inputs.'
+        if (errData?.data && typeof errData.data === 'object') {
+          // Extract bean validation errors (e.g. { email: "...", message: "..." })
+          msg = Object.values(errData.data).join(' · ')
+        } else if (errData?.message) {
+          msg = errData.message
+        }
+        setErrorMessage(msg)
+        setStatus('error')
+        setTimeout(() => setStatus(null), 7000)
       }
     } catch {
-      // Graceful fallback for demo frontend
-      setStatus('success')
-      setForm({ name: '', email: '', subject: '', message: '' })
-      setTimeout(() => setStatus(null), 5000)
+      setErrorMessage(
+        'Unable to connect to the backend API. Please make sure the Spring Boot server is running on http://localhost:8080.'
+      )
+      setStatus('error')
+      setTimeout(() => setStatus(null), 7000)
     }
   }
 
@@ -276,7 +286,7 @@ export default function Contact() {
                     className="p-4 bg-red-500/10 border border-red-500/25 rounded-xl text-red-400 text-sm font-medium flex items-center gap-2.5"
                   >
                     <span>✗</span>
-                    <span>Something went wrong. Please try again or reach out directly.</span>
+                    <span>{errorMessage || 'Something went wrong. Please try again or reach out directly.'}</span>
                   </motion.div>
                 )}
 
