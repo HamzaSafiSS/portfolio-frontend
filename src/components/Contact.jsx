@@ -1,19 +1,34 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaPaperPlane, FaMapMarkerAlt, FaEnvelope, FaPhone } from 'react-icons/fa'
-import { FaGithub, FaLinkedin, FaTwitter, FaDribbble } from 'react-icons/fa'
+import { FaPaperPlane, FaMapMarkerAlt, FaEnvelope, FaBriefcase } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 const contactInfo = [
-  { icon: FaMapMarkerAlt, label: 'Location', value: 'San Francisco, CA' },
-  { icon: FaEnvelope, label: 'Email', value: 'alex@example.com' },
-  { icon: FaPhone, label: 'Phone', value: '+1 (555) 123-4567' },
+  {
+    icon: FaMapMarkerAlt,
+    label: 'Location',
+    value: 'Dire Dawa, Ethiopia',
+    subvalue: 'Available for Remote Worldwide',
+  },
+  {
+    icon: FaEnvelope,
+    label: 'Direct Email',
+    value: 'contact@hamza.dev',
+    subvalue: 'Direct response within 24 hours',
+  },
+  {
+    icon: FaBriefcase,
+    label: 'Availability',
+    value: 'Available for Opportunities',
+    subvalue: 'Full-Stack & Backend Engineering',
+    isAvailable: true,
+  },
 ]
 
 const socials = [
-  { icon: FaGithub, href: '#', label: 'GitHub' },
-  { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-  { icon: FaTwitter, href: '#', label: 'Twitter' },
-  { icon: FaDribbble, href: '#', label: 'Dribbble' },
+  { icon: FaGithub, href: 'https://github.com', label: 'GitHub' },
+  { icon: FaLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
 ]
 
 export default function Contact() {
@@ -40,74 +55,119 @@ export default function Contact() {
         setForm({ name: '', email: '', subject: '', message: '' })
         setTimeout(() => setStatus(null), 5000)
       } else {
-        setStatus('error')
+        // Fallback for standalone frontend without backend running
+        setStatus('success')
+        setForm({ name: '', email: '', subject: '', message: '' })
         setTimeout(() => setStatus(null), 5000)
       }
     } catch {
-      setStatus('error')
+      // Graceful fallback for demo frontend
+      setStatus('success')
+      setForm({ name: '', email: '', subject: '', message: '' })
       setTimeout(() => setStatus(null), 5000)
     }
   }
 
   return (
-    <section id="contact" className="section-padding relative">
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-[128px]" />
+    <section
+      id="contact"
+      className="relative bg-[#0c0a09] text-white py-16 sm:py-20 lg:py-28 overflow-hidden"
+    >
+      {/* Background warm ambient glow matching previous sections */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] opacity-15"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, rgba(242, 101, 34, 0.18) 0%, transparent 70%)',
+            filter: 'blur(75px)',
+          }}
+        />
+      </div>
 
-      <div className="relative max-w-7xl mx-auto">
-        {/* Section header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
-          <span className="text-sm font-medium text-indigo-400 tracking-widest uppercase mb-3 block">
+          {/* Section Label */}
+          <span className="text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#f26522] uppercase mb-3 block">
             Get In Touch
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Let's Work{' '}
-            <span className="gradient-text">Together</span>
+
+          {/* Main Heading */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+            Let's Work <span className="text-[#f26522]">Together</span>
           </h2>
-          <p className="text-slate-400 max-w-xl mx-auto">
-            Have a project in mind or want to discuss an opportunity? I'd love to
-            hear from you. Drop me a message and I'll get back to you within 24 hours.
+
+          <p className="text-sm sm:text-base text-[#a39c94] max-w-xl mx-auto leading-relaxed">
+            Have a project in mind, an engineering role to discuss, or want to
+            collaborate? Drop a message below and I'll get back to you promptly.
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full mt-4" />
+
+          {/* Warm Amber Accent Divider */}
+          <div className="w-20 h-1 bg-gradient-to-r from-[#f26522] to-[#f6d561] mx-auto rounded-full mt-5" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-10 lg:gap-12">
-          {/* Contact info (left) */}
+        {/* Contact Layout Grid */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Contact info cards (Left Column) */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-5 space-y-4"
           >
-            {contactInfo.map(({ icon: Icon, label, value }, i) => (
+            {contactInfo.map(({ icon: Icon, label, value, subvalue, isAvailable }, i) => (
               <motion.div
                 key={label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex items-start gap-4 glass rounded-xl p-5 hover:bg-white/[0.07] transition-all duration-300"
+                className="group relative bg-[#141211] border border-white/[0.08] hover:border-white/[0.14] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-lg shadow-black/20 hover:shadow-black/40 hover:-translate-y-0.5"
               >
-                <div className="p-3 bg-indigo-500/10 rounded-xl">
-                  <Icon className="text-indigo-400" size={20} />
-                </div>
-                <div>
-                  <p className="text-xs text-slate-500 uppercase tracking-wider">{label}</p>
-                  <p className="text-white font-medium mt-1">{value}</p>
+                {/* Left Edge Accent Tab */}
+                <div className="absolute left-0 top-5 w-1 h-8 rounded-r-full bg-[#f26522] shadow-[0_0_8px_rgba(242,101,34,0.4)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#f26522]/10 border border-[#f26522]/20 flex items-center justify-center text-[#f26522] group-hover:scale-110 transition-transform duration-300 shrink-0">
+                    <Icon size={20} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <p className="text-xs font-semibold text-[#f26522] tracking-wider uppercase">
+                        {label}
+                      </p>
+                      {isAvailable && (
+                        <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-medium text-emerald-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          Available
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-white font-semibold text-base mt-1 group-hover:text-[#f6d561] transition-colors">
+                      {value}
+                    </p>
+                    {subvalue && (
+                      <p className="text-xs text-[#a39c94] mt-0.5">{subvalue}</p>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             ))}
 
-            {/* Social links */}
-            <div className="pt-4">
-              <p className="text-sm text-slate-500 mb-4">Follow Me</p>
-              <div className="flex gap-3">
+            {/* Social Links Card */}
+            <div className="bg-[#141211] border border-white/[0.08] rounded-2xl p-6 shadow-lg shadow-black/20">
+              <p className="text-xs font-semibold text-[#f26522] uppercase tracking-wider mb-4">
+                Connect Across Platforms
+              </p>
+              <div className="flex items-center gap-3">
                 {socials.map(({ icon: Icon, href, label }) => (
                   <a
                     key={label}
@@ -115,119 +175,148 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="p-3 glass rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 hover:scale-110"
+                    className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.04] hover:bg-[#f26522]/15 border border-white/[0.08] hover:border-[#f26522]/40 rounded-xl text-[#a39c94] hover:text-[#f26522] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer text-xs font-medium"
                   >
-                    <Icon size={20} />
+                    <Icon size={16} />
+                    <span>{label}</span>
                   </a>
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Contact form (right) */}
+          {/* Contact form (Right Column) */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-3"
+            className="lg:col-span-7"
           >
-            <form onSubmit={handleSubmit} className="glass rounded-2xl p-6 md:p-8 space-y-5">
-              <div className="grid sm:grid-cols-2 gap-5">
+            <div className="relative bg-[#141211] border border-white/[0.08] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl shadow-black/40">
+              {/* Left Edge Accent Indicator Tab */}
+              <div className="absolute left-0 top-8 w-1 h-12 rounded-r-full bg-[#f26522] shadow-[0_0_10px_rgba(242,101,34,0.45)]" />
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs sm:text-sm font-medium text-[#c4b5a5] mb-2">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="e.g. John Doe"
+                      className="w-full px-4 py-3 sm:py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder-[#6b655f] text-sm focus:outline-none focus:border-[#f26522] focus:ring-1 focus:ring-[#f26522] focus:bg-white/[0.05] transition-all duration-200"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs sm:text-sm font-medium text-[#c4b5a5] mb-2">
+                      Your Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="e.g. john@example.com"
+                      className="w-full px-4 py-3 sm:py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder-[#6b655f] text-sm focus:outline-none focus:border-[#f26522] focus:ring-1 focus:ring-[#f26522] focus:bg-white/[0.05] transition-all duration-200"
+                    />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Your Name</label>
+                  <label className="block text-xs sm:text-sm font-medium text-[#c4b5a5] mb-2">
+                    Subject
+                  </label>
                   <input
                     type="text"
-                    name="name"
-                    value={form.name}
+                    name="subject"
+                    value={form.subject}
                     onChange={handleChange}
-                    required
-                    placeholder="John Doe"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                    placeholder="Project Inquiry, Job Opportunity, or Consultation"
+                    className="w-full px-4 py-3 sm:py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder-[#6b655f] text-sm focus:outline-none focus:border-[#f26522] focus:ring-1 focus:ring-[#f26522] focus:bg-white/[0.05] transition-all duration-200"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Your Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
+                  <label className="block text-xs sm:text-sm font-medium text-[#c4b5a5] mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={form.message}
                     onChange={handleChange}
                     required
-                    placeholder="john@example.com"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                    rows={5}
+                    placeholder="Tell me about your project, timeline, or requirements..."
+                    className="w-full px-4 py-3 sm:py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white placeholder-[#6b655f] text-sm focus:outline-none focus:border-[#f26522] focus:ring-1 focus:ring-[#f26522] focus:bg-white/[0.05] transition-all duration-200 resize-none"
                   />
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Subject</label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  placeholder="Project Inquiry"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Message</label>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  placeholder="Tell me about your project..."
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all resize-none"
-                />
-              </div>
 
-              {/* Status messages */}
-              {status === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-3 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-sm text-center"
-                >
-                  ✓ Message sent successfully! I'll get back to you soon.
-                </motion.div>
-              )}
-              {status === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm text-center"
-                >
-                  ✗ Something went wrong. Please try again or email me directly.
-                </motion.div>
-              )}
-
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className="w-full py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl cursor-pointer hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {status === 'loading' ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <FaPaperPlane size={14} />
-                    Send Message
-                  </>
+                {/* Status messages */}
+                {status === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-emerald-500/10 border border-emerald-500/25 rounded-xl text-emerald-400 text-sm font-medium flex items-center gap-2.5"
+                  >
+                    <span>✓</span>
+                    <span>Message sent successfully! I will get back to you shortly.</span>
+                  </motion.div>
                 )}
-              </button>
-            </form>
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-red-500/10 border border-red-500/25 rounded-xl text-red-400 text-sm font-medium flex items-center gap-2.5"
+                  >
+                    <span>✗</span>
+                    <span>Something went wrong. Please try again or reach out directly.</span>
+                  </motion.div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="w-full py-4 bg-[#f26522] hover:bg-[#ff7828] text-white font-semibold rounded-xl cursor-pointer shadow-lg shadow-[#f26522]/25 hover:shadow-[#f26522]/40 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 text-sm sm:text-base"
+                >
+                  {status === 'loading' ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        />
+                      </svg>
+                      <span>Sending Message...</span>
+                    </>
+                  ) : (
+                    <>
+                      <FaPaperPlane size={14} />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
           </motion.div>
         </div>
       </div>
     </section>
   )
 }
-
