@@ -21,8 +21,8 @@ const projects = [
     tech: ['Java', 'Spring Boot', 'PostgreSQL', 'React', 'Docker'],
     highlights: ['Automated Invoicing', 'Tenant Portal', 'Payment Tracking'],
     image: rentCollectorImg,
-    github: 'https://github.com',
-    demo: '#',
+    github: 'https://github.com/HamzaSafiSS/rent-collector-frontend',
+    demo: 'https://rent-collector-frontend.vercel.app',
   },
   {
     id: 'dental-clinic',
@@ -34,8 +34,8 @@ const projects = [
     tech: ['Spring Boot', 'PostgreSQL', 'React', 'Docker', 'REST API'],
     highlights: ['Patient Records', 'Doctor Scheduling', 'Billing & Treatments'],
     image: dentalClinicImg,
-    github: 'https://github.com',
-    demo: '#',
+    github: 'https://github.com/HamzaSafiSS/dental-frontend',
+    demo: 'https://dental-frontend.vercel.app',
   },
   {
     id: 'hotel-website',
@@ -47,8 +47,8 @@ const projects = [
     tech: ['React', 'Tailwind CSS', 'Node.js', 'Framer Motion'],
     highlights: ['Interactive Suites', 'Booking Engine', 'Responsive Design'],
     image: hotelImg,
-    github: 'https://github.com',
-    demo: '#',
+    github: 'https://github.com/HamzaSafiSS/hotel-frontend',
+    demo: 'https://hotel-frontend-iota.vercel.app',
   },
   {
     id: 'agency',
@@ -60,8 +60,8 @@ const projects = [
     tech: ['React', 'Next.js', 'Tailwind CSS', 'SEO Optimization'],
     highlights: ['Client Lead Capture', 'Portfolio Showcase', 'Fast Performance'],
     image: agencyImg,
-    github: 'https://github.com',
-    demo: '#',
+    github: 'https://github.com/HamzaSafiSS/agency',
+    demo: 'https://agency-drab-six.vercel.app/',
   },
 ]
 
@@ -278,9 +278,8 @@ export default function Projects() {
                       setPage((p) => p + slot.offset)
                     }
                   }}
-                  className={`absolute top-1/2 left-1/2 will-change-transform ${
-                    slot.visibilityClass
-                  } ${isCenter ? 'cursor-default' : 'cursor-pointer'}`}
+                  className={`absolute top-1/2 left-1/2 will-change-transform ${slot.visibilityClass
+                    } ${isCenter ? 'cursor-default' : 'cursor-pointer'}`}
                   style={{
                     zIndex: slot.zIndex,
                     transform: `translate(calc(-50% + ${slot.xPercent}%), -50%) scale(${slot.scale})`,
@@ -291,11 +290,10 @@ export default function Projects() {
                 >
                   {/* Polaroid Frame Container matching Reference Design */}
                   <div
-                    className={`bg-[#ffffff] rounded-[3px] sm:rounded-[4px] p-2.5 sm:p-3 pb-6 sm:pb-8 md:pb-9 w-[260px] sm:w-[330px] md:w-[390px] lg:w-[430px] border border-white/60 transition-all duration-500 ease-out ${
-                      isCenter
-                        ? 'hover:scale-[1.02] shadow-[0_28px_60px_-10px_rgba(0,0,0,0.95)]'
-                        : 'hover:brightness-110 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.85)]'
-                    }`}
+                    className={`bg-[#ffffff] rounded-[3px] sm:rounded-[4px] p-2.5 sm:p-3 pb-6 sm:pb-8 md:pb-9 w-[260px] sm:w-[330px] md:w-[390px] lg:w-[430px] border border-white/60 transition-all duration-500 ease-out ${isCenter
+                      ? 'hover:scale-[1.02] shadow-[0_28px_60px_-10px_rgba(0,0,0,0.95)]'
+                      : 'hover:brightness-110 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.85)]'
+                      }`}
                   >
                     {/* Inner Photo Mount with Aspect-16/9 and object-contain to eliminate any cropping */}
                     <div className="relative w-full aspect-[16/9] bg-[#0c0a09] overflow-hidden rounded-[2px] border border-black/15 flex items-center justify-center">
@@ -357,11 +355,10 @@ export default function Projects() {
               key={proj.id}
               onClick={() => handleDotClick(idx)}
               aria-label={`Go to ${proj.title}`}
-              className={`transition-all duration-300 cursor-pointer ${
-                idx === activeIndex
-                  ? 'w-8 h-2 bg-gradient-to-r from-[#f26522] to-[#f6d561] rounded-full shadow-[0_0_10px_rgba(242,101,34,0.5)]'
-                  : 'w-2 h-2 bg-white/20 hover:bg-white/40 rounded-full'
-              }`}
+              className={`transition-all duration-300 cursor-pointer ${idx === activeIndex
+                ? 'w-8 h-2 bg-gradient-to-r from-[#f26522] to-[#f6d561] rounded-full shadow-[0_0_10px_rgba(242,101,34,0.5)]'
+                : 'w-2 h-2 bg-white/20 hover:bg-white/40 rounded-full'
+                }`}
             />
           ))}
         </div>
@@ -434,6 +431,8 @@ export default function Projects() {
               <div className="flex items-center gap-3 pt-4 border-t border-white/[0.08]">
                 <a
                   href={activeProject.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#f26522] hover:bg-[#ff7828] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-lg shadow-[#f26522]/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <span>Live Preview</span>
@@ -443,7 +442,7 @@ export default function Projects() {
                 <a
                   href={activeProject.github}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/[0.06] hover:bg-white/[0.12] text-white text-xs sm:text-sm font-semibold rounded-xl border border-white/10 transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <FaGithub className="text-sm" />
