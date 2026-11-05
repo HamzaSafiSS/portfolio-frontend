@@ -40,13 +40,15 @@ export default function Contact() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus('loading')
     setErrorMessage('')
 
     try {
-      const res = await fetch('http://localhost:8080/api/contact', {
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -71,7 +73,7 @@ export default function Contact() {
       }
     } catch {
       setErrorMessage(
-        'Unable to connect to the backend API. Please make sure the Spring Boot server is running on http://localhost:8080.'
+        `Unable to connect to the backend API at ${API_BASE_URL}. Please verify the server is running.`
       )
       setStatus('error')
       setTimeout(() => setStatus(null), 7000)
